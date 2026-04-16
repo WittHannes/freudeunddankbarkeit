@@ -9,8 +9,13 @@
       align-items:center;
       height:100vh;
       background-color: #f0f0f0;
+      background-image: url('IMG_3705.JPG');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
       color: #222;
       transition: background 0.3s, color 0.3s;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     input {
       padding: 10px;
@@ -36,34 +41,97 @@
       color: #f0f0f0 !important;
       border: 1px solid #444 !important;
     }
+    .box {
+      border-radius: 5px;
+      border: 1px solid rgba(150, 150, 150, 0.5);
+      background: rgba(200, 200, 200, 0.5);
+      padding: 10px;
+      transition: background 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transform: translateY(0);
+      backdrop-filter: blur(8px);
+    }
+    .box:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      transform: translateY(-2px) scale(1.05);
+    }
+    .dark .box {
+      background: rgba(100, 100, 100, 0.5);
+      border-color: rgba(130, 130, 130, 0.5);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(255,255,255,0.1);
+    }
+    .dark .box:hover {
+      box-shadow: 0 4px 16px rgba(255,255,255,0.2);
+      transform: translateY(-2px) scale(1.05);
+    }
+    #toggleModeBtn {
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    #toggleModeBtn:hover {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transform: scale(1.05);
+    }
+    h1 {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      margin: 0;
+      font-size: 36px;
+      color: rgba(255, 255, 255, 0.9);
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .dark h1 {
+      color: rgba(255, 255, 255, 0.9);
+    }
+    .subtitle {
+      position: fixed;
+      top: 65px;
+      left: 20px;
+      margin: 0;
+      font-size: 28px;
+      color: rgba(255, 255, 255, 0.9);
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      font-weight: normal;
+    }
+    #quoteBox {
+            white-space: pre-wrap !important;
+        }
   </style>
 </head>
 <body>
-  <div style="display:flex; flex-direction:column; align-items:center; gap: 20px;">
-    <h1>Hier empfinden wir Freude und Dankbarkeit</h1>
+  <h1>freudeunddankbarkeit.de</h1>
+  <p class="subtitle">Hier empfinden wir Freude und Dankbarkeit</p>
+  <div style="display:flex; flex-direction:column; align-items:center; gap: 20px; position: absolute; left: 75px; top: calc(50% - 150px);">
     <div style="display:flex; justify-content:center; gap: 20px;">
-      <a href="https://kups.ub.uni-koeln.de/942/1/Prom.pdf" style="cursor: pointer;">
-        <img src="grafik1.jpeg" style="max-width:300px; height:auto; display: block;">
+      <a href="https://freudeunddankbarkeit.duckdns.org" class="box" id="box3" style="cursor: pointer;">
+        <img src="grafik.png" style="max-width:350px; height:230px; display: block;">
       </a>
-      <a href="https://freudeunddankbarkeit.duckdns.org" style="cursor: pointer;">
-        <img src="grafik.png" style="max-width:300px; height:auto; display: block;">
-      </a>
-      <a href="https://lornsenschule.de/wp-content/uploads/2023/03/2020Knetter.jpg" style="cursor: pointer;">
-        <img src="grafik2.png" style="max-width:300px; height:auto; display: block;">
-      </a>
+    </div>
+  </div>
+  <div style="position: fixed; bottom: 20px; left: 20px; display:flex; gap: 20px;">
+    <a href="https://kups.ub.uni-koeln.de/942/1/Prom.pdf" class="box quote-box" id="box1" style="cursor: pointer;">
+      <img src="grafik1.jpeg" style="max-width:220px; height:150px; display: block;">
+    </a>
+    <a href="https://freudeunddankbarkeit.duckdns.org/apps/contacts/circle/nre7YvxHK9gQbu3wPGgOTcLKgXtkzOr" class="box quote-box" id="box2" style="cursor: pointer;">
+      <img src="grafik2.png" style="max-width:220px; height:150px; display: block;">
+    </a>
+    <div class="box" id="quoteBox" style="width: 220px; height: 150px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; font-size: 14px; color: rgba(255, 255, 255, 0.9); text-shadow: 0 2px 4px rgba(0,0,0,0.3); font-weight: normal;">
+      Hover über die Bilder, für den Lexikon-Eintrag
     </div>
   </div>
   <button id="toggleModeBtn" style="
     position: fixed;
     bottom: 20px;
-    left: 20px;
+    right: 20px;
     padding: 6px 14px;
     border-radius: 5px;
     border: none;
     background: #333;
     color: #fff;
     cursor: pointer;
-    opacity: 0.7;
+    opacity: 0.95;
     z-index: 1000;
     font-size: 14px;
   ">🌙</button>
@@ -105,6 +173,33 @@
         setInitialMode();
       }
     });
+
+    // Quote box functionality
+    const quoteBox = document.getElementById('quoteBox');
+    const quotes = {
+      box1: '<b><i>Wink mit dem Zaunfahl</i></b><br>- Verlangt nach Aufmerksamkeit; auch bekannt als [Klausurrelevant]',
+      box2: '<b><i>Die Peitsche</i></b><br>- Subtile Warnung an entsprechender Stelle keine Fehler zu begehen',
+      box3: '<b><i>Freude und Dankbarkeit</i></b><br>- Wird empfunden bei Erlangung neuer Kenntnisse; steigert sich, wenn Kontext mathematisch'
+    };
+
+    document.getElementById('box1').addEventListener('mouseenter', function() {
+      quoteBox.innerHTML = quotes.box1;
+    });
+
+    document.getElementById('box2').addEventListener('mouseenter', function() {
+      quoteBox.innerHTML = quotes.box2;
+    });
+
+    document.getElementById('box3').addEventListener('mouseenter', function() {
+      quoteBox.innerHTML = quotes.box3;
+    });
+
+    document.getElementById('quoteBox').addEventListener('mouseleave', function() {
+      quoteBox.textContent = 'Hover über die Bilder, um mehr zu erfahren';
+    });
+
+    //Zitat freistehend
+
   </script>
 </body>
 </html>
