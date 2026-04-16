@@ -198,8 +198,104 @@
       quoteBox.textContent = 'Hover über die Bilder, um mehr zu erfahren';
     });
 
-    //Zitat freistehend
 
+    
+  //Textfeld mit Gemini
+          // 1. Zitat-Container erstellen
+          const zitatContainer = document.createElement('div');
+
+          // 2. HTML-Inhalt: Text + das Input-Feld
+          // Wir setzen nur die Struktur, das Design kommt gleich per Logik
+          zitatContainer.innerHTML = `
+            „Die Wurzel aus der Summe zieht in Schleswig nur der 
+            <input type="text" id="zitatInput" class="box" style="
+              display: inline-block;
+              width: 140px;
+              padding: 2px 10px;
+              margin: 0 5px;
+              font-family: inherit;
+              font-size: 20px;
+              font-style: italic;
+              text-align: center;
+              outline: none;
+              cursor: text;
+              transition: all 0.3s ease;
+            ">“
+          `;
+
+          // 3. Container-Positionierung
+          Object.assign(zitatContainer.style, {
+              position: 'fixed',
+              top: '320px',
+              right: '90px',
+              transform: 'translateY(-50%)',
+              color: 'rgba(255, 255, 255, 0.9)',
+              textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+              fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+              fontSize: '24px',
+              fontStyle: 'italic',
+              maxWidth: '400px',
+              zIndex: '1000'
+          });
+
+          document.body.appendChild(zitatContainer);
+
+          const zitatInput = document.getElementById('zitatInput');
+
+          // 4. Die ultimative Funktion für den Glas-Look
+          function applyGlassStyle() {
+              const isDark = document.body.classList.contains('dark');
+              
+              // Wir setzen die Werte EXAKT so, wie sie in deinem <style> für .box stehen
+              if (isDark) {
+                  zitatInput.style.backgroundColor = 'rgba(100, 100, 100, 0.5)';
+                  zitatInput.style.borderColor = 'rgba(130, 130, 130, 0.5)';
+                  zitatInput.style.color = '#fff';
+              } else {
+                  zitatInput.style.backgroundColor = 'rgba(200, 200, 200, 0.5)';
+                  zitatInput.style.borderColor = 'rgba(150, 150, 150, 0.5)';
+                  zitatInput.style.color = '#222';
+              }
+              // Der Blur-Effekt muss explizit erhalten bleiben
+              zitatInput.style.backdropFilter = 'blur(8px)';
+              zitatInput.style.webkitBackdropFilter = 'blur(8px)';
+          }
+
+          // Initial anwenden
+          applyGlassStyle();
+
+          // 5. Integration in deinen vorhandenen Toggle-Button
+          const toggleBtn = document.getElementById('toggleModeBtn');
+          const oldClick = toggleBtn.onclick;
+          toggleBtn.onclick = function(e) {
+              if (oldClick) oldClick.apply(this, arguments);
+              applyGlassStyle(); // Glas-Effekt nach dem Modus-Wechsel neu berechnen
+          };
+
+          // 6. Weiterleitung
+          zitatInput.addEventListener('input', function() {
+              if (this.value.toLowerCase() === 'domschüler') {
+                  this.style.backgroundColor = 'rgba(76, 175, 80, 0.6)';
+                  setTimeout(() => {
+                      window.location.href = 'https://www.youtube.com/@christianknetter2810';
+                  }, 400);
+              }
+          });
+      
+      
+      //Autor 
+      const autor = document.createElement('div');
+      autor.textContent = '- Knetter';
+      autor.style.position = 'fixed';
+      autor.style.top = '375px';
+      autor.style.right = '110px';
+      autor.style.color = 'rgba(255, 255, 255, 0.7)';
+      autor.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+      autor.style.fontSize = '16px';
+      autor.style.zIndex = '1000';
+      autor.style.fontStyle = 'italic';
+      document.body.appendChild(autor);
+        
   </script>
 </body>
 </html>
