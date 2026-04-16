@@ -18,25 +18,23 @@
       border-radius: 5px;
       border: 1px solid #ccc;
     }
-    @media (prefers-color-scheme: dark) {
-      body {
-        background-color: #181818;
-        color: #f0f0f0;
-      }
-      input {
-        background: #222;
-        color: #f0f0f0;
-        border: 1px solid #444;
-      }
+    .light {
+      background-color: #f0f0f0 !important;
+      color: #222 !important;
     }
-    .darkmode {
+    .light input {
+      background: white !important;
+      color: #222 !important;
+      border: 1px solid #ccc !important;
+    }
+    .dark {
       background-color: #181818 !important;
       color: #f0f0f0 !important;
     }
-    .darkmode input {
-      background: #222;
-      color: #f0f0f0;
-      border: 1px solid #444;
+    .dark input {
+      background: #222 !important;
+      color: #f0f0f0 !important;
+      border: 1px solid #444 !important;
     }
   </style>
 </head>
@@ -62,32 +60,42 @@
     font-size: 14px;
   ">🌙</button>
   <script>
+    let hasUserToggled = false;
+
     // Set initial mode based on system preference
     function setInitialMode() {
       if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('darkmode');
+        document.body.classList.remove('light');
+        document.body.classList.add('dark');
         document.getElementById('toggleModeBtn').textContent = '☀️';
       } else {
-        document.body.classList.remove('darkmode');
+        document.body.classList.remove('dark');
+        document.body.classList.add('light');
         document.getElementById('toggleModeBtn').textContent = '🌙';
       }
+      hasUserToggled = false;
     }
     setInitialMode();
 
     // Manual toggle always overrides system preference
     document.getElementById('toggleModeBtn').onclick = function() {
-      document.body.classList.toggle('darkmode');
-      if (document.body.classList.contains('darkmode')) {
-        this.textContent = '☀️';
-      } else {
+      if (document.body.classList.contains('dark')) {
+        document.body.classList.remove('dark');
+        document.body.classList.add('light');
         this.textContent = '🌙';
+      } else {
+        document.body.classList.remove('light');
+        document.body.classList.add('dark');
+        this.textContent = '☀️';
       }
+      hasUserToggled = true;
     };
 
     // Listen for system changes and update only if user hasn't toggled manually
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-      // Only update if the user hasn't toggled manually (button state matches system)
-      setInitialMode();
+      if (!hasUserToggled) {
+        setInitialMode();
+      }
     });
   </script>
 </body>
