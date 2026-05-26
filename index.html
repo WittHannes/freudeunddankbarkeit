@@ -51,6 +51,7 @@
       transform: translateY(0);
       backdrop-filter: blur(8px);
       box-sizing: border-box;
+      z-index: 10 !important;
     }
     .box:hover {
       box-shadow: 0 4px 16px rgba(0,0,0,0.2);
@@ -59,6 +60,7 @@
     .draggable {
       cursor: grab;
       user-select: none;
+      z-index: 20 !important;
     }
     
     /* Turn off transitions and scales entirely while dragging */
@@ -66,6 +68,7 @@
       transition: none !important;
       transform: none !important;
       box-shadow: none !important;
+      z-index: 50 !important;
     }
 
     /* FIX: Only disable the hover transform AFTER the item has been dragged once */
@@ -99,6 +102,7 @@
       font-size: 36px;
       color: #0a2266;
       text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      z-index: 1000 !important;
     }
     .dark h1 {
       color: #0a2266;
@@ -112,19 +116,21 @@
       color: #0a2266;
       text-shadow: 0 2px 4px rgba(0,0,0,0.1);
       font-weight: normal;
+      z-index: 1000;
     }
     #quoteBox {
       white-space: pre-wrap !important;
       color: #0a2266 !important;
       text-shadow: none !important;
+      z-index: 1000 !important;
     }
   </style>
 </head>
 <body>
   <h1>freudeunddankbarkeit.de</h1>
   <p class="subtitle">Hier empfinden wir Freude und Dankbarkeit</p>
-  <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-    <div class="box" id="quoteBox" style="width: 240px; height: 160px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; font-size: 14px; color: rgba(255, 255, 255, 0.9); text-shadow: 0 2px 4px rgba(0,0,0,0.3); font-weight: normal;">
+  <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
+    <div class="box" id="quoteBox" style="width: 240px; height: 160px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; font-size: 14px; color: rgba(255, 255, 255, 0.9); text-shadow: 0 2px 4px rgba(0,0,0,0.3); font-weight: normal; z-index: 1000;">
       Hover über die Bilder, für den Lexikon-Eintrag
     </div>
   </div>
